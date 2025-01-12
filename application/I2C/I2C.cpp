@@ -1,24 +1,51 @@
+#include "I2C.h"
 
-// LCD module defines
-#define LCD_LINEONE             0x00        // start of line 1
-#define LCD_LINETWO             0x40        // start of line 2
-#define LCD_LINETHREE           0x14        // start of line 3
-#define LCD_LINEFOUR            0x54        // start of line 4
+namespace I2C{
+    //Инициализурем начальное состояние I2Cx 
+    i2c::i2c_state_e            i2c::_i2c_state{i2c_state_e::I2C_NOT_INITED};
+    i2c_master_bus_config_t     i2c::i2c_config{};
+    i2c_master_bus_handle_t     i2c::i2c_bus_handle{};
+    
+    //Конструктор
+    i2c::i2c(const gpio_num_t _scl = GPIO_NUM_7, const gpio_num_t _sda = GPIO_NUM_6):
+        _pin_scl{_scl},
+        _pin_sda{_sda}{
+    }//ToDo smth
 
-#define LCD_BACKLIGHT           0x08
-#define LCD_ENABLE              0x04               
-#define LCD_COMMAND             0x00
-#define LCD_WRITE               0x01
+    esp_err_t i2c::init(void){
+        return _init();
+    }
 
-#define LCD_SET_DDRAM_ADDR      0x80
-#define LCD_READ_BF             0x40
+    esp_err_t i2c::_init(void){
 
-// LCD instructions
-#define LCD_CLEAR               0x01        // replace all characters with ASCII 'space'
-#define LCD_HOME                0x02        // return cursor to first position on first line
-#define LCD_ENTRY_MODE          0x06        // shift cursor from left to right on read/write
-#define LCD_DISPLAY_OFF         0x08        // turn display off
-#define LCD_DISPLAY_ON          0x0C        // display on, cursor off, don't blink character
-#define LCD_FUNCTION_RESET      0x30        // reset the LCD
-#define LCD_FUNCTION_SET_4BIT   0x28        // 4-bit data, 2-line display, 5 x 7 font
-#define LCD_SET_CURSOR          0x80        // set cursor position
+        ESP_LOGI(_log_tag, "%s:%d Start_init_I2C", __func__, __LINE__);
+        
+        esp_err_t status{ESP_OK};
+
+        if(i2c_state_e::I2C_NOT_INITED == _i2c_state){
+            
+            if(ESP_OK == status){
+                i2c_config.clk_source    = I2C_CLK_SRC_DEFAULT;
+                i2c_config.i2c_port      = I2C_NUM_0;
+                i2c_config.scl_io_num    = _pin_scl;
+                i2c_config.sda_io_num    = _pin_sda;
+                i2c_config.glitch_ignore_cnt = 7;
+                i2c_config.flags.enable_internal_pullup = true;
+
+                ESP_LOGI(_log_tag, "%s:%d Calling i2c_new_master_bus", __func__, __LINE__);
+                status |= i2c_new_master_bus(&i2c_config, &i2c_bus_handle);
+                ESP_LOGI(_log_tag, "%s:%d i2c_new_master_bus:%s", __func__, __LINE__, esp_err_to_name(status));
+
+            };
+            if(ESP_OK == status){
+                ESP_LOGI(_log_tag, "%s:%d I2C INITED", __func__, __LINE__);
+                _i2c_state = i2c_state_e::INITED;
+            }
+        }else if(i2c_state_e::ERROR == _i2c_state){
+            ESP_LOGE(_log_tag, "%s:%d FAILED", __func__, __LINE__);
+            status = ESP_FAIL;
+        }
+        return status;
+    }
+
+}

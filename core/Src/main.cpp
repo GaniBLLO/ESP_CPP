@@ -25,10 +25,16 @@ esp_err_t MAIN::setup(void){
     esp_err_t status{ESP_OK};
     ESP_LOGI(LOG_TAG, "Setup");
     status |= led.init();
-    status |= wifi.init();
 
+    status |= wifi.init();
     if(ESP_OK == status)
         status |= wifi.begin();
+
+    status |= I2c.init();
+    if(ESP_OK == status){
+        status |= LCD_I2c.init(); 
+    }
+    
     return status;
 }
 
@@ -43,3 +49,4 @@ void MAIN::loop(void){
     vTaskDelay(pdSecond);
 
 }
+    
