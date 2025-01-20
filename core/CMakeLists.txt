@@ -7,4 +7,6 @@ idf_component_register(SRCS ${SOURCES}
                                         nvs_flash
                                         GPIO
                                         I2C
+                                        SPI
+                                        ADC
                                         Wifi)
