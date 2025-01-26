@@ -62,6 +62,9 @@ $<TARGET_FILE:__idf_nvs_sec_provider>
 $<TARGET_FILE:__idf_spiffs>
 $<TARGET_FILE:__idf_wifi_provisioning>
 $<TARGET_FILE:__idf_GPIO>
+$<TARGET_FILE:__idf_I2C>
+$<TARGET_FILE:__idf_SPI>
+$<TARGET_FILE:__idf_ADC>
+$<TARGET_FILE:__idf_TIMER>
 $<TARGET_FILE:__idf_Wifi>
 $<TARGET_FILE:__idf_core>
-$<TARGET_FILE:__idf_I2C>

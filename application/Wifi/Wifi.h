@@ -16,8 +16,8 @@
 namespace WIFI{
     constexpr static const char* _log_tag{"WiFi"};
 
-    constexpr static const char* ssid{"MyWiwi"};
-    constexpr static const char* password{"MyPass"};
+    constexpr static const char* ssid{"TP-LINK_0392"};
+    constexpr static const char* password{"87919097"};
 
     class Wifi{
         public:

@@ -62,6 +62,9 @@
 /home/ganibllo/Learning_ESP_/build/esp-idf/spiffs/libspiffs.a
 /home/ganibllo/Learning_ESP_/build/esp-idf/wifi_provisioning/libwifi_provisioning.a
 /home/ganibllo/Learning_ESP_/build/esp-idf/GPIO/libGPIO.a
+/home/ganibllo/Learning_ESP_/build/esp-idf/I2C/libI2C.a
+/home/ganibllo/Learning_ESP_/build/esp-idf/SPI/libSPI.a
+/home/ganibllo/Learning_ESP_/build/esp-idf/ADC/libADC.a
+/home/ganibllo/Learning_ESP_/build/esp-idf/TIMER/libTIMER.a
 /home/ganibllo/Learning_ESP_/build/esp-idf/Wifi/libWifi.a
 /home/ganibllo/Learning_ESP_/build/esp-idf/core/libcore.a
-/home/ganibllo/Learning_ESP_/build/esp-idf/I2C/libI2C.a

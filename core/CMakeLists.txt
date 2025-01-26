@@ -9,4 +9,5 @@ idf_component_register(SRCS ${SOURCES}
                                         I2C
                                         SPI
                                         ADC
+                                        TIMER
                                         Wifi)
